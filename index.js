@@ -266,6 +266,12 @@ class GulpSSH extends EventEmitter {
     }
 
     return through.obj(function (file, encoding, callback) {
+      const fancyLog = require('fancy-log');
+      const log = (str) => {
+        fancyLog(str);
+        this.push(str);
+      };
+      
       if (file.isNull()) {
         log('"' + colors.cyan(file.path) + '" has no content. Skipping.')
         return callback()
